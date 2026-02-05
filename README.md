@@ -3,7 +3,7 @@
 <!-- mcp-name: io.github.uniplexprotocol/manage -->
 
 [![npm version](https://img.shields.io/npm/v/uniplex-mcp-manage)](https://www.npmjs.com/package/uniplex-mcp-manage)
-[![PyPI version](https://img.shields.io/pypi/v/uniplex-mcp-manage)](https://pypi.org/project/uniplex-mcp-manage/)
+<!-- TODO: Add PyPI badge once published: [![PyPI version](https://img.shields.io/pypi/v/uniplex-mcp-manage)](https://pypi.org/project/uniplex-mcp-manage/) -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![MCP Compatible](https://img.shields.io/badge/MCP-compatible-green)](https://modelcontextprotocol.io)
 
@@ -63,7 +63,7 @@ For local MCP clients, add Uniplex to your configuration file:
       "command": "npx",
       "args": ["uniplex-mcp-manage"],
       "env": {
-        "UNIPLEX_API_KEY": "sk_live_xxxxxxxx"
+        "UNIPLEX_API_KEY": "uni_live_xxxxxxxx"
       }
     }
   }
@@ -79,7 +79,7 @@ For local MCP clients, add Uniplex to your configuration file:
       "command": "uvx",
       "args": ["uniplex-mcp-manage"],
       "env": {
-        "UNIPLEX_API_KEY": "sk_live_xxxxxxxx"
+        "UNIPLEX_API_KEY": "uni_live_xxxxxxxx"
       }
     }
   }
@@ -93,13 +93,13 @@ For local MCP clients, add Uniplex to your configuration file:
 claude mcp add uniplex \
   --scope user \
   -- npx uniplex-mcp-manage \
-  --env UNIPLEX_API_KEY=sk_live_xxxxxxxx
+  --env UNIPLEX_API_KEY=uni_live_xxxxxxxx
 
 # via Python
 claude mcp add uniplex \
   --scope user \
   -- uvx uniplex-mcp-manage \
-  --env UNIPLEX_API_KEY=sk_live_xxxxxxxx
+  --env UNIPLEX_API_KEY=uni_live_xxxxxxxx
 ```
 
 ### 3. Restart and Use
@@ -187,7 +187,7 @@ Attestations are signed records of verification decisions — a tamper-evident a
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
-| `UNIPLEX_API_KEY` | Yes | — | Your Uniplex API key (`sk_live_*` or `sk_test_*`) |
+| `UNIPLEX_API_KEY` | Yes | — | Your Uniplex API key (`uni_live_*` or `uni_test_*`) |
 | `UNIPLEX_API_URL` | No | `https://api.uniplex.ai` | API base URL (override for local dev) |
 
 ---
@@ -206,7 +206,7 @@ For local testing against a development dashboard:
       "args": ["uniplex-mcp-manage"],
       "env": {
         "UNIPLEX_API_URL": "http://localhost:3000",
-        "UNIPLEX_API_KEY": "sk_test_xxxxxxxx"
+        "UNIPLEX_API_KEY": "uni_test_xxxxxxxx"
       }
     }
   }
@@ -223,7 +223,7 @@ For local testing against a development dashboard:
       "args": ["uniplex-mcp-manage"],
       "env": {
         "UNIPLEX_API_URL": "http://localhost:3000",
-        "UNIPLEX_API_KEY": "sk_test_xxxxxxxx"
+        "UNIPLEX_API_KEY": "uni_test_xxxxxxxx"
       }
     }
   }
@@ -238,7 +238,7 @@ For local testing against a development dashboard:
 Make sure you've restarted Claude Desktop after editing the config file. Check for JSON syntax errors in your config — a trailing comma or missing bracket will silently fail.
 
 **"Invalid API key" error**  
-Verify your key starts with `sk_live_` (production) or `sk_test_` (development) and hasn't been revoked in the dashboard.
+Verify your key starts with `uni_live_` (production) or `uni_test_` (development) and hasn't been revoked in the dashboard.
 
 **Tools aren't showing up**  
 Run `npx uniplex-mcp-manage` directly in your terminal to check for startup errors. Ensure you're running Node.js 18+.
