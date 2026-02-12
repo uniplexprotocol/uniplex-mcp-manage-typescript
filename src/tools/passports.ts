@@ -27,14 +27,8 @@ export const tools: Tool[] = [
       type: 'object',
       required: ['gate_id', 'passport_id'],
       properties: {
-        gate_id: {
-          type: 'string',
-          description: 'The gate ID',
-        },
-        passport_id: {
-          type: 'string',
-          description: 'The passport ID',
-        },
+        gate_id: { type: 'string', description: 'The gate ID' },
+        passport_id: { type: 'string', description: 'The passport ID' },
       },
     },
   },
@@ -51,20 +45,32 @@ export const tools: Tool[] = [
         },
         agent_id: {
           type: 'string',
-          description: 'Identifier for the agent receiving the passport (e.g., "agent_claude-123")',
+          description: 'Identifier for the agent receiving the passport',
+        },
+        agent_name: {
+          type: 'string',
+          description: 'Human-readable name for the agent',
+        },
+        agent_public_key: {
+          type: 'string',
+          description: 'Agent public key (base64) for proof-of-possession',
         },
         permissions: {
           type: 'array',
           items: { type: 'string' },
-          description: 'List of permission keys to grant (e.g., ["flights:search", "flights:book"])',
+          description: 'Permission keys to grant (e.g., ["flights:search", "flights:book"])',
         },
         constraints: {
           type: 'object',
-          description: 'Optional constraints (e.g., { "core:cost:max": 100000 })',
+          description: 'Optional constraints (e.g., { "core:cost:max_per_action": 100000 })',
         },
         expires_in_seconds: {
           type: 'number',
           description: 'How long until passport expires (default: 3600 = 1 hour)',
+        },
+        expires_in: {
+          type: 'string',
+          description: 'Human-friendly expiry (e.g., "7d", "24h")',
         },
         metadata: {
           type: 'object',
@@ -80,13 +86,25 @@ export const tools: Tool[] = [
       type: 'object',
       required: ['gate_id', 'passport_id'],
       properties: {
-        gate_id: {
-          type: 'string',
-          description: 'The gate ID',
-        },
+        gate_id: { type: 'string', description: 'The gate ID' },
+        passport_id: { type: 'string', description: 'The passport ID to revoke' },
+      },
+    },
+  },
+  {
+    name: 'reissue_passport',
+    description: 'Re-issue a passport pinned to a newer catalog version.',
+    inputSchema: {
+      type: 'object',
+      required: ['passport_id'],
+      properties: {
         passport_id: {
           type: 'string',
-          description: 'The passport ID to revoke',
+          description: 'The passport ID to reissue',
+        },
+        accept_catalog_version: {
+          type: 'number',
+          description: 'Catalog version to pin the reissued passport to',
         },
       },
     },
@@ -94,23 +112,32 @@ export const tools: Tool[] = [
 ];
 
 export const handlers: Record<string, (api: ApiClient, args: Record<string, unknown>) => Promise<unknown>> = {
-  list_passports: async (api: ApiClient, args: Record<string, unknown>) => {
+  list_passports: async (api, args) => {
     const { gate_id } = args as { gate_id: string };
     return api.get(`/api/gates/${gate_id}/passports`);
   },
 
-  get_passport: async (api: ApiClient, args: Record<string, unknown>) => {
+  get_passport: async (api, args) => {
     const { gate_id, passport_id } = args as { gate_id: string; passport_id: string };
     return api.get(`/api/gates/${gate_id}/passports/${passport_id}`);
   },
 
-  issue_passport: async (api: ApiClient, args: Record<string, unknown>) => {
+  issue_passport: async (api, args) => {
     const { gate_id, ...body } = args as { gate_id: string } & Record<string, unknown>;
     return api.post(`/api/gates/${gate_id}/passports`, body);
   },
 
-  revoke_passport: async (api: ApiClient, args: Record<string, unknown>) => {
+  revoke_passport: async (api, args) => {
     const { gate_id, passport_id } = args as { gate_id: string; passport_id: string };
     return api.delete(`/api/gates/${gate_id}/passports/${passport_id}`);
+  },
+
+  reissue_passport: async (api, args) => {
+    const { passport_id, accept_catalog_version } = args as {
+      passport_id: string; accept_catalog_version?: number;
+    };
+    const body: Record<string, unknown> = {};
+    if (accept_catalog_version !== undefined) body.accept_catalog_version = accept_catalog_version;
+    return api.post(`/api/passports/${passport_id}/reissue`, body);
   },
 };
