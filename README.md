@@ -22,7 +22,7 @@ MCP server for managing the [Uniplex](https://uniplex.ai) trust infrastructure �
 
 This MCP server lets you manage both sides conversationally from any MCP client.
 
-> [Protocol specification](https://github.com/uniplexprotocol/uniplex) · [Documentation](https://uniplex.io) · [SDK (Python)](https://pypi.org/project/uniplex/) · [SDK (TypeScript)](https://www.npmjs.com/package/uniplex)
+> [Protocol specification](https://github.com/uniplexprotocol/uniplex) · [Documentation](https://uniplex.ai) · [MCP SDK (TypeScript)](https://www.npmjs.com/package/uniplex-mcp-sdk) · [MCP SDK (Python)](https://pypi.org/project/uniplex-mcp-sdk/)
 
 ---
 
@@ -221,8 +221,8 @@ Run `npx uniplex-mcp-manage` directly in your terminal to check for startup erro
 
 - [Uniplex Dashboard](https://uniplex.ai) — Create your account and manage gates, passports, and API keys
 - [Protocol Specification](https://github.com/uniplexprotocol/uniplex)
-- [Documentation & Guides](https://uniplex.io)
-- [Python SDK](https://pypi.org/project/uniplex/) · [TypeScript SDK](https://www.npmjs.com/package/uniplex)
+- [Documentation & Guides](https://uniplex.ai)
+- [MCP SDK (TypeScript)](https://www.npmjs.com/package/uniplex-mcp-sdk) · [MCP SDK (Python)](https://pypi.org/project/uniplex-mcp-sdk/)
 - [Management SDK (Python)](https://pypi.org/project/uniplex-mcp-manage/)
 - [Discussions](https://github.com/uniplexprotocol/uniplex/discussions) — Questions and ideas
 - [@uniplexprotocol](https://x.com/uniplexprotocol) — Updates and announcements
